@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>認証コード | 投資ナビ</title>
+<style>
+  :root {
+    --paper: #fbf8f3;
+    --ink: #1c1a17;
+    --ink-soft: #5b5650;
+    --accent: #b45f04;
+    --accent-bg: #fdf1e0;
+    --line: #e8e1d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #15130f;
+      --ink: #f2ede4;
+      --ink-soft: #b4ab9c;
+      --accent: #f2a93b;
+      --accent-bg: #2b2011;
+      --line: #332c20;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif;
+    padding: 24px;
+  }
+  .card {
+    max-width: 520px;
+    width: 100%;
+  }
+  h1 {
+    font-size: 24px;
+    margin: 0 0 12px;
+  }
+  p {
+    color: var(--ink-soft);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .code-box {
+    background: var(--accent-bg);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    word-break: break-all;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 15px;
+    color: var(--ink);
+    position: relative;
+  }
+  button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:active { opacity: 0.85; }
+  .error {
+    color: #b91c1c;
+  }
+  .hint {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>認証コードを取得しました</h1>
+  <p>以下のコードをコピーして、ターミナルの <code>npm run tiktok:auth</code> の画面に貼り付けてください。</p>
+  <div class="code-box" id="code">読み込み中...</div>
+  <button id="copyBtn">コピーする</button>
+  <p class="hint" id="hint"></p>
+</div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+  const error = params.get("error");
+  const codeEl = document.getElementById("code");
+  const hintEl = document.getElementById("hint");
+  const copyBtn = document.getElementById("copyBtn");
+
+  if (error) {
+    codeEl.textContent = "エラー: " + error;
+    codeEl.classList.add("error");
+    copyBtn.style.display = "none";
+  } else if (code) {
+    codeEl.textContent = code;
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(code).then(() => {
+        hintEl.textContent = "コピーしました。";
+      });
+    });
+  } else {
+    codeEl.textContent = "コードが見つかりませんでした。";
+    copyBtn.style.display = "none";
+  }
+</script>
+</body>
+</html>
