@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>投資ナビ【初心者向け】</title>
+<title>ToshiNavi</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="description" content="ToshiNavi(投資ナビ)は、上場企業の決算やPER・PBRなどの投資指標を1分のショート動画で解説するYouTube・TikTokチャンネルです。">
 <style>
   :root {
     --paper: #fbf8f3;
@@ -13,6 +15,7 @@
     --accent: #b45f04;
     --accent-bg: #fdf1e0;
     --line: #e8e1d6;
+    --card: #ffffff;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -23,6 +26,7 @@
       --accent: #f2a93b;
       --accent-bg: #2b2011;
       --line: #332c20;
+      --card: #1c1912;
     }
   }
   * { box-sizing: border-box; }
@@ -31,86 +35,244 @@
     background: var(--paper);
     color: var(--ink);
     font-family: -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif;
-    line-height: 1.85;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
   }
   .page {
-    max-width: 640px;
+    max-width: 720px;
     margin: 0 auto;
-    padding: 80px 24px 96px;
+    padding: 56px 24px 96px;
   }
-  .brand {
+  header.brand {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 48px;
+    gap: 12px;
+    margin-bottom: 56px;
   }
-  .brand-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--accent);
+  .brand img {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    flex-shrink: 0;
+  }
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
   }
   .brand-name {
+    font-family: Georgia, serif;
     font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.06em;
-    color: var(--ink-soft);
+    font-size: 19px;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  .brand-sub {
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
   }
   h1 {
-    font-size: clamp(28px, 5vw, 36px);
+    font-family: Georgia, serif;
+    font-size: clamp(28px, 5.5vw, 38px);
     line-height: 1.35;
-    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+    margin: 0 0 18px;
+    text-wrap: balance;
   }
   p {
     color: var(--ink-soft);
     font-size: 16px;
+    max-width: 58ch;
   }
   .links {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 32px;
+    margin-top: 28px;
   }
   a.button {
     display: inline-block;
     background: var(--accent);
     color: #fff;
     text-decoration: none;
-    padding: 10px 20px;
+    padding: 10px 22px;
     border-radius: 999px;
     font-size: 14px;
     font-weight: 600;
   }
-  a.text-link {
+  a.button.secondary {
+    background: transparent;
     color: var(--accent);
-    font-size: 14px;
+    border: 1px solid var(--accent);
   }
+  a.text-link { color: var(--accent); }
+
+  section {
+    margin-top: 72px;
+  }
+  h2 {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    margin: 0 0 20px;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+  }
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .feature-card .num {
+    font-family: Georgia, serif;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 10px;
+  }
+  .feature-card h3 {
+    font-size: 15.5px;
+    margin: 0 0 8px;
+  }
+  .feature-card p {
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .video-card {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .video-card .video-title {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .video-card .video-cta {
+    display: block;
+    margin-top: 8px;
+    font-size: 12.5px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
   footer {
-    margin-top: 64px;
+    margin-top: 80px;
     padding-top: 24px;
     border-top: 1px solid var(--line);
     color: var(--ink-faint);
     font-size: 13px;
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 </style>
 </head>
 <body>
 <div class="page">
-  <div class="brand">
-    <span class="brand-dot"></span>
-    <span class="brand-name">投資ナビ【初心者向け】</span>
-  </div>
-  <h1>決算・株価・投資指標を、1分で簡単解説</h1>
-  <p>上場企業の決算発表や、PER・PBRといった投資の基礎知識を、初心者向けにショート動画で分かりやすく解説しています。YouTube・TikTokで配信中です。</p>
+  <header class="brand">
+    <img src="favicon.png" alt="ToshiNavi icon">
+    <div class="brand-text">
+      <span class="brand-name">ToshiNavi</span>
+      <span class="brand-sub">投資ナビ【初心者向け】</span>
+    </div>
+  </header>
+
+  <p class="eyebrow">Investing, explained simply</p>
+  <h1>決算・株価・投資指標を、<br>1分で簡単解説</h1>
+  <p>上場企業の決算発表や、PER・PBRといった投資の基礎知識を、初心者向けにショート動画で分かりやすく解説しています。日本株・米国株の決算をその日のうちに取り上げ、毎週複数本のペースで配信中です。</p>
   <div class="links">
-    <a class="button" href="https://www.youtube.com/@toshi_navi" target="_blank" rel="noopener">YouTubeを見る</a>
-    <a class="button" href="https://www.tiktok.com/@toshi_navi" target="_blank" rel="noopener">TikTokを見る</a>
+    <a class="button" href="https://www.youtube.com/@toshi_navi" target="_blank" rel="noopener">YouTubeで見る</a>
+    <a class="button secondary" href="https://www.tiktok.com/@toshi_navi" target="_blank" rel="noopener">TikTokで見る</a>
   </div>
+
+  <section>
+    <h2>ToshiNaviについて</h2>
+    <p>ToshiNaviは、個人が運営する決算・投資教育チャンネルです。企業の決算発表を「何が起きたか」「なぜ株価が動いたか」まで含めて1分程度のショート動画にまとめ、専門用語が苦手な初心者にも分かるように解説しています。</p>
+    <div class="features" style="margin-top: 24px;">
+      <div class="feature-card">
+        <p class="num">01</p>
+        <h3>決算解説</h3>
+        <p>売上高・利益の増減、市場予想との差、株価の反応までをグラフ付きで解説します。</p>
+      </div>
+      <div class="feature-card">
+        <p class="num">02</p>
+        <h3>投資指標</h3>
+        <p>PER・PBRなど、決算を読むために必要な基礎指標を単体で解説する回もあります。</p>
+      </div>
+      <div class="feature-card">
+        <p class="num">03</p>
+        <h3>日本株・米国株</h3>
+        <p>東証上場企業だけでなく、NASDAQ・NYSE上場の米国企業の決算も取り上げます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>最新の解説動画</h2>
+    <div class="video-grid">
+      <a class="video-card" href="https://www.youtube.com/shorts/C1IjZbMNzGo" target="_blank" rel="noopener">
+        <span class="video-title">【まさかの2.5倍】任天堂の営業利益急拡大、でも通期は純利益26.9%減予想</span>
+        <span class="video-cta">YouTube Shortsで見る →</span>
+      </a>
+      <a class="video-card" href="https://www.youtube.com/shorts/m0u0_c4MsTw" target="_blank" rel="noopener">
+        <span class="video-title">【まさかの2.3倍】ホンダ純利益急拡大、通期も黒字転換で上方修正</span>
+        <span class="video-cta">YouTube Shortsで見る →</span>
+      </a>
+      <a class="video-card" href="https://www.youtube.com/shorts/G0FDwj8uO90" target="_blank" rel="noopener">
+        <span class="video-title">【売上92%増】スペースX上場後初決算、AI投資への警戒で株価急落</span>
+        <span class="video-cta">YouTube Shortsで見る →</span>
+      </a>
+      <a class="video-card" href="https://www.youtube.com/shorts/AEEs18dbYP4" target="_blank" rel="noopener">
+        <span class="video-title">【初心者向け】PBR(株価純資産倍率)を1分で簡単解説</span>
+        <span class="video-cta">YouTube Shortsで見る →</span>
+      </a>
+      <a class="video-card" href="https://www.youtube.com/shorts/wQhLrWNTjIk" target="_blank" rel="noopener">
+        <span class="video-title">【市場予想を覆す】トヨタ純利益75.6%増、通期も上方修正</span>
+        <span class="video-cta">YouTube Shortsで見る →</span>
+      </a>
+      <a class="video-card" href="https://www.youtube.com/shorts/hY_imOqmJDI" target="_blank" rel="noopener">
+        <span class="video-title">【純利益47%増】三菱商事、銅・原料炭が好調で大幅増益</span>
+        <span class="video-cta">YouTube Shortsで見る →</span>
+      </a>
+    </div>
+    <p style="margin-top: 20px;"><a class="text-link" href="https://www.youtube.com/@toshi_navi" target="_blank" rel="noopener">すべての動画をYouTubeで見る →</a></p>
+  </section>
+
   <footer>
     <a class="text-link" href="./terms.html">利用規約</a>
     <a class="text-link" href="./privacy.html">プライバシーポリシー</a>
+    <span>お問い合わせ: TikTok / YouTube「ToshiNavi(投資ナビ)」アカウントのDM</span>
   </footer>
 </div>
 </body>
